@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package org.qbix.pm.client;
 
 /**
  *
@@ -32,8 +32,8 @@ public class MainPanel extends javax.swing.JPanel {
 
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        team2JPanel = new main.TeamJPanel();
-        team1JPanel = new main.TeamJPanel();
+        team2JPanel = new org.qbix.pm.client.TeamJPanel();
+        team1JPanel = new org.qbix.pm.client.TeamJPanel();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -81,12 +81,12 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private main.PlayerEntryPanel playerEntryPanel10;
-    private main.PlayerEntryPanel playerEntryPanel11;
-    private main.PlayerEntryPanel playerEntryPanel7;
-    private main.PlayerEntryPanel playerEntryPanel8;
-    private main.PlayerEntryPanel playerEntryPanel9;
-    private main.TeamJPanel team1JPanel;
-    private main.TeamJPanel team2JPanel;
+    private org.qbix.pm.client.PlayerEntryPanel playerEntryPanel10;
+    private org.qbix.pm.client.PlayerEntryPanel playerEntryPanel11;
+    private org.qbix.pm.client.PlayerEntryPanel playerEntryPanel7;
+    private org.qbix.pm.client.PlayerEntryPanel playerEntryPanel8;
+    private org.qbix.pm.client.PlayerEntryPanel playerEntryPanel9;
+    private org.qbix.pm.client.TeamJPanel team1JPanel;
+    private org.qbix.pm.client.TeamJPanel team2JPanel;
     // End of variables declaration//GEN-END:variables
 }

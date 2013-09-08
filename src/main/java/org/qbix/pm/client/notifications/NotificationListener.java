@@ -1,4 +1,4 @@
-package notifications;
+package org.qbix.pm.client.notifications;
 
 
 public class NotificationListener {

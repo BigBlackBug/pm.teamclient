@@ -1,4 +1,4 @@
-package notifications;
+package org.qbix.pm.client.notifications;
 
 import java.io.Serializable;
 
