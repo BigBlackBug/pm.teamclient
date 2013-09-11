@@ -2,13 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.qbix.pm.client;
+package org.qbix.pm.client.view;
+
+import org.qbix.pm.client.GameDTO;
 
 /**
  *
  * @author BigBlackBug
  */
-public class MainPanel extends javax.swing.JPanel {
+public class MainPanel extends javax.swing.JPanel implements View {
 
     /**
      * Creates new form NewJPanel
@@ -32,8 +34,8 @@ public class MainPanel extends javax.swing.JPanel {
 
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        team2JPanel = new org.qbix.pm.client.TeamJPanel();
-        team1JPanel = new org.qbix.pm.client.TeamJPanel();
+        team2JPanel = new org.qbix.pm.client.view.TeamJPanel();
+        team1JPanel = new org.qbix.pm.client.view.TeamJPanel();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -81,12 +83,12 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private org.qbix.pm.client.PlayerEntryPanel playerEntryPanel10;
-    private org.qbix.pm.client.PlayerEntryPanel playerEntryPanel11;
-    private org.qbix.pm.client.PlayerEntryPanel playerEntryPanel7;
-    private org.qbix.pm.client.PlayerEntryPanel playerEntryPanel8;
-    private org.qbix.pm.client.PlayerEntryPanel playerEntryPanel9;
-    private org.qbix.pm.client.TeamJPanel team1JPanel;
-    private org.qbix.pm.client.TeamJPanel team2JPanel;
+    private org.qbix.pm.client.view.PlayerEntryPanel playerEntryPanel10;
+    private org.qbix.pm.client.view.PlayerEntryPanel playerEntryPanel11;
+    private org.qbix.pm.client.view.PlayerEntryPanel playerEntryPanel7;
+    private org.qbix.pm.client.view.PlayerEntryPanel playerEntryPanel8;
+    private org.qbix.pm.client.view.PlayerEntryPanel playerEntryPanel9;
+    private org.qbix.pm.client.view.TeamJPanel team1JPanel;
+    private org.qbix.pm.client.view.TeamJPanel team2JPanel;
     // End of variables declaration//GEN-END:variables
 }

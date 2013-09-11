@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.qbix.pm.client;
+package org.qbix.pm.client.view;
 
 /**
  *
@@ -27,11 +27,11 @@ public class TeamJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        player1Panel = new org.qbix.pm.client.PlayerEntryPanel();
-        player2Panel = new org.qbix.pm.client.PlayerEntryPanel();
-        player3Panel = new org.qbix.pm.client.PlayerEntryPanel();
-        player4Panel = new org.qbix.pm.client.PlayerEntryPanel();
-        player5Panel = new org.qbix.pm.client.PlayerEntryPanel();
+        player1Panel = new org.qbix.pm.client.view.PlayerEntryPanel();
+        player2Panel = new org.qbix.pm.client.view.PlayerEntryPanel();
+        player3Panel = new org.qbix.pm.client.view.PlayerEntryPanel();
+        player4Panel = new org.qbix.pm.client.view.PlayerEntryPanel();
+        player5Panel = new org.qbix.pm.client.view.PlayerEntryPanel();
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -64,11 +64,11 @@ public class TeamJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.qbix.pm.client.PlayerEntryPanel player1Panel;
-    private org.qbix.pm.client.PlayerEntryPanel player2Panel;
-    private org.qbix.pm.client.PlayerEntryPanel player3Panel;
-    private org.qbix.pm.client.PlayerEntryPanel player4Panel;
-    private org.qbix.pm.client.PlayerEntryPanel player5Panel;
+    private org.qbix.pm.client.view.PlayerEntryPanel player1Panel;
+    private org.qbix.pm.client.view.PlayerEntryPanel player2Panel;
+    private org.qbix.pm.client.view.PlayerEntryPanel player3Panel;
+    private org.qbix.pm.client.view.PlayerEntryPanel player4Panel;
+    private org.qbix.pm.client.view.PlayerEntryPanel player5Panel;
     // End of variables declaration//GEN-END:variables
 
     public PlayerEntryPanel getPlayer1Panel() {
@@ -78,28 +78,28 @@ public class TeamJPanel extends javax.swing.JPanel {
     /**
      * @return the player2Panel
      */
-    public org.qbix.pm.client.PlayerEntryPanel getPlayer2Panel() {
+    public org.qbix.pm.client.view.PlayerEntryPanel getPlayer2Panel() {
         return player2Panel;
     }
 
     /**
      * @return the player3Panel
      */
-    public org.qbix.pm.client.PlayerEntryPanel getPlayer3Panel() {
+    public org.qbix.pm.client.view.PlayerEntryPanel getPlayer3Panel() {
         return player3Panel;
     }
 
     /**
      * @return the player4Panel
      */
-    public org.qbix.pm.client.PlayerEntryPanel getPlayer4Panel() {
+    public org.qbix.pm.client.view.PlayerEntryPanel getPlayer4Panel() {
         return player4Panel;
     }
 
     /**
      * @return the player5Panel
      */
-    public org.qbix.pm.client.PlayerEntryPanel getPlayer5Panel() {
+    public org.qbix.pm.client.view.PlayerEntryPanel getPlayer5Panel() {
         return player5Panel;
     }
 }
