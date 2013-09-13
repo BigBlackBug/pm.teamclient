@@ -6,17 +6,25 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import org.qbix.pm.client.controller.StartupClientController;
+import org.qbix.pm.client.controller.interfaces.StartupClientController;
+import org.qbix.pm.client.model.EndOfGameDTO;
+import org.qbix.pm.client.model.GameDTO;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 public class LoLClientListener {
 	private static final int DEFAULT_BLOCK_SIZE = 1024;
 	private static final int STARTUP_CLIENT_PORT = 4545;
 	private final StartupClientController controller;
 	private final ServerSocket listener;
+	private final Gson gson;
 
 	public LoLClientListener(StartupClientController controller)
 			throws IOException {
 		this.controller = controller;
+		this.gson = new Gson();
 		this.listener = new ServerSocket(STARTUP_CLIENT_PORT);
 	}
 
@@ -35,7 +43,23 @@ public class LoLClientListener {
 									.getInputStream());
 							System.out.println("-------JSON-------");
 							System.out.println(dtoJson);
-							controller.handleLolClientDTO(dtoJson);
+							JsonObject fromJson = gson.fromJson(dtoJson,new TypeToken<JsonObject>() {
+							}.getType());
+							String ele = fromJson.get("ObjectType").getAsString();
+							if(ele.equals("EndOfGameStats")){
+								EndOfGameDTO endOfGameDTO = gson.fromJson(fromJson,
+									new TypeToken<EndOfGameDTO>() {
+									}.getType());
+								controller.handleEndOfGameDTO(endOfGameDTO);
+							}else if(ele.equals("GameDTO")){
+								GameDTO gameDTO = gson.fromJson(fromJson,
+									new TypeToken<GameDTO>() {
+									}.getType());
+								controller.handleGameDTO(gameDTO);
+							}else{
+								throw new UnsupportedOperationException("unsupported ObjectType");
+							}
+							
 							System.out.println("-------JSON_END-------");
 						} finally {
 							socket.close();

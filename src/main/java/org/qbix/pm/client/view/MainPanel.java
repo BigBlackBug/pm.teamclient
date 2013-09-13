@@ -4,13 +4,16 @@
  */
 package org.qbix.pm.client.view;
 
-import org.qbix.pm.client.GameDTO;
+import org.qbix.pm.client.controller.interfaces.PlayerEntryPanelController;
+import org.qbix.pm.client.controller.interfaces.SessionSettingsPanelController;
+import org.qbix.pm.client.misc.PlaymoreSessionStatus;
+import org.qbix.pm.client.view.interfaces.PMTeamView;
 
 /**
  *
  * @author BigBlackBug
  */
-public class MainPanel extends javax.swing.JPanel implements View {
+public class MainPanel extends javax.swing.JPanel implements PMTeamView {
 
     /**
      * Creates new form NewJPanel
@@ -19,10 +22,35 @@ public class MainPanel extends javax.swing.JPanel implements View {
         initComponents();
     }
     
-    public void updateGui(GameDTO gameDTO){
-        
-    }
+	@Override
+	public PlayerEntryPanelController getPlayerEntryPanelController(
+			Long accountID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public SessionSettingsPanelController getSessionSettingsController() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void setSessionStatus(PlaymoreSessionStatus status) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void showView() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void hideView() {
+		// TODO Auto-generated method stub
+	}
+	
+	
+	
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,4 +119,5 @@ public class MainPanel extends javax.swing.JPanel implements View {
     private org.qbix.pm.client.view.TeamJPanel team1JPanel;
     private org.qbix.pm.client.view.TeamJPanel team2JPanel;
     // End of variables declaration//GEN-END:variables
+
 }
