@@ -16,16 +16,16 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="player1Panel" pref="431" max="32767" attributes="0"/>
-                  <Component id="player2Panel" pref="0" max="32767" attributes="0"/>
-                  <Component id="player3Panel" alignment="1" pref="0" max="32767" attributes="0"/>
-                  <Component id="player5Panel" alignment="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="player4Panel" alignment="1" pref="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="player4Panel" max="32767" attributes="0"/>
+                  <Component id="player1Panel" alignment="1" max="32767" attributes="0"/>
+                  <Component id="player2Panel" alignment="1" max="32767" attributes="0"/>
+                  <Component id="player3Panel" alignment="1" max="32767" attributes="0"/>
+                  <Component id="player5Panel" alignment="1" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -33,30 +33,30 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="player1Panel" pref="116" max="32767" attributes="0"/>
+              <Component id="player1Panel" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="player2Panel" pref="116" max="32767" attributes="0"/>
+              <Component id="player2Panel" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="player3Panel" pref="116" max="32767" attributes="0"/>
+              <Component id="player3Panel" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="player4Panel" pref="116" max="32767" attributes="0"/>
+              <Component id="player4Panel" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="player5Panel" pref="119" max="32767" attributes="0"/>
+              <Component id="player5Panel" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="main.PlayerEntryPanel" name="player1Panel">
+    <Component class="org.qbix.pm.client.view.PlayerEntryPanel" name="player1Panel">
     </Component>
-    <Component class="main.PlayerEntryPanel" name="player2Panel">
+    <Component class="org.qbix.pm.client.view.PlayerEntryPanel" name="player2Panel">
     </Component>
-    <Component class="main.PlayerEntryPanel" name="player3Panel">
+    <Component class="org.qbix.pm.client.view.PlayerEntryPanel" name="player3Panel">
     </Component>
-    <Component class="main.PlayerEntryPanel" name="player4Panel">
+    <Component class="org.qbix.pm.client.view.PlayerEntryPanel" name="player4Panel">
     </Component>
-    <Component class="main.PlayerEntryPanel" name="player5Panel">
+    <Component class="org.qbix.pm.client.view.PlayerEntryPanel" name="player5Panel">
     </Component>
   </SubComponents>
 </Form>

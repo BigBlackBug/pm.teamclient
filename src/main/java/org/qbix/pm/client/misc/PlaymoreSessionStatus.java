@@ -12,6 +12,8 @@ public enum PlaymoreSessionStatus {
 	
 	FINISHED,
 	
-	FINISHED_WITH_ERROR
+	FINISHED_WITH_ERROR,
+	
+	SESSION_INCONSISTENT
 	
 }

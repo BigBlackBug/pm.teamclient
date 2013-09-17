@@ -4,19 +4,95 @@
  */
 package org.qbix.pm.client.view;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.qbix.pm.client.model.PlayerParticipant;
+import org.qbix.pm.client.notifications.ParticipantsReturnInfo.Entry;
+import org.qbix.pm.client.view.interfaces.PlayerEntryPanelView;
+import org.qbix.pm.client.view.interfaces.TeamPanelView;
+
 /**
  *
  * @author BigBlackBug
  */
-public class TeamJPanel extends javax.swing.JPanel {
-
+public class TeamJPanel extends javax.swing.JPanel implements TeamPanelView{
+	
+	private Map<Long, PlayerEntryPanelView> map;
     /**
      * Creates new form TeamJPanel
      */
-    public TeamJPanel() {
-        initComponents();
-    }
+	public TeamJPanel() {
+		initComponents();
+		map = new HashMap<Long, PlayerEntryPanelView>();
+	}
 
+	@Override
+	public void fill(List<PlayerParticipant> players,
+			Map<Long, Entry> pmEntries) {
+		assert players.size() == pmEntries.size();
+		
+		PlayerParticipant pp = players.get(0);
+		fillOne(player1Panel, pp, pmEntries);
+		
+		pp = players.get(1);
+		fillOne(player2Panel, pp, pmEntries);
+		
+		pp = players.get(2);
+		fillOne(player3Panel, pp, pmEntries);
+
+		pp = players.get(3);
+		fillOne(player4Panel, pp, pmEntries);
+
+		pp = players.get(4);
+		fillOne(player5Panel, pp, pmEntries);
+	}
+
+	private void fillOne(PlayerEntryPanelView view, PlayerParticipant pp,
+			Map<Long, Entry> pmEntries) {
+		Entry entry = pmEntries.get(pp.getAccountId());
+		Long pmAccountID = entry.getPmAccountID();
+		String pmNickName = entry.getPmNickName();
+		view.fill(pp, pmAccountID, pmNickName);
+		map.put(pmAccountID, view);
+	}
+	
+	
+    @Override
+	public PlayerEntryPanelView getPlayerEntryPanelView(
+			Long pmAccountID) {
+		return map.get(pmAccountID);
+	}
+
+	@Override
+	public PlayerEntryPanelView getPlayer1Panel() {
+		return player1Panel;
+	}
+
+
+	@Override
+	public PlayerEntryPanelView getPlayer2Panel() {
+		return player2Panel;
+	}
+
+
+	@Override
+	public PlayerEntryPanelView getPlayer3Panel() {
+		return player3Panel;
+	}
+
+
+	@Override
+	public PlayerEntryPanelView getPlayer4Panel() {
+		return player4Panel;
+	}
+
+
+	@Override
+	public PlayerEntryPanelView getPlayer5Panel() {
+		return player5Panel;
+	}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,27 +115,27 @@ public class TeamJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(player1Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
-                    .addComponent(player2Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(player3Panel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(player5Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(player4Panel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(player4Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(player1Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(player2Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(player3Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(player5Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(player1Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addComponent(player1Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(player2Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addComponent(player2Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(player3Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addComponent(player3Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(player4Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addComponent(player4Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(player5Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addComponent(player5Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -71,35 +147,4 @@ public class TeamJPanel extends javax.swing.JPanel {
     private org.qbix.pm.client.view.PlayerEntryPanel player5Panel;
     // End of variables declaration//GEN-END:variables
 
-    public PlayerEntryPanel getPlayer1Panel() {
-        return player1Panel;
-    }
-    
-    /**
-     * @return the player2Panel
-     */
-    public org.qbix.pm.client.view.PlayerEntryPanel getPlayer2Panel() {
-        return player2Panel;
-    }
-
-    /**
-     * @return the player3Panel
-     */
-    public org.qbix.pm.client.view.PlayerEntryPanel getPlayer3Panel() {
-        return player3Panel;
-    }
-
-    /**
-     * @return the player4Panel
-     */
-    public org.qbix.pm.client.view.PlayerEntryPanel getPlayer4Panel() {
-        return player4Panel;
-    }
-
-    /**
-     * @return the player5Panel
-     */
-    public org.qbix.pm.client.view.PlayerEntryPanel getPlayer5Panel() {
-        return player5Panel;
-    }
 }

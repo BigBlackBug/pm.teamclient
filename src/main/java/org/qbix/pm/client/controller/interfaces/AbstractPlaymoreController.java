@@ -10,53 +10,84 @@ import org.qbix.pm.client.model.EndOfGameDTO;
 import org.qbix.pm.client.model.GameDTO;
 import org.qbix.pm.client.notifications.NotificationListener;
 import org.qbix.pm.client.view.interfaces.PMEndGameView;
-import org.qbix.pm.client.view.interfaces.PMTeamView;
+import org.qbix.pm.client.view.interfaces.PMMainView;
+import org.qbix.pm.client.view.interfaces.PlayerEntryPanelView;
+import org.qbix.pm.client.view.interfaces.SessionSettingsPanelView;
+
+import com.google.gson.JsonObject;
 
 public abstract class AbstractPlaymoreController implements
-		StartupClientController, HostController {
-	protected final PMTeamView teamView;
+		StartupClientController, PlaymoreController {
+	protected final PMMainView mainView;
 	protected final PMEndGameView endGameView;
 	protected final LoLClientListener lolClientListener;
 
 	protected NotificationListener notificationListener;
 	protected long sessionID = -1;
-	protected long accountID = -1;
+	protected long pmAccountID = -1;
+	protected volatile GameDTO gameDTO;
 
 	protected final Object dtoLock = new Object();
 
-	protected AbstractPlaymoreController(PMTeamView teamView,
-			PMEndGameView endGameView, long accountID) throws IOException {
-		this.teamView = teamView;
+	protected AbstractPlaymoreController(PMMainView mainView,
+			PMEndGameView endGameView, long pmAccountID)
+			throws IOException {
+		this.mainView = mainView;
 		this.endGameView = endGameView;
-		this.accountID = accountID;
+		this.pmAccountID = pmAccountID;
 		this.lolClientListener = new LoLClientListener(this);
 	}
 
 	@Override
 	public void handleStakeConfirmation(Long accountID) {
-		PlayerEntryPanelController panelController = teamView
-				.getPlayerEntryPanelController(accountID);
+		PlayerEntryPanelView panelController = mainView
+				.getPlayerEntryPanelView(accountID);
 		panelController.setConfirmedStake(true);
 	}
 
 	@Override
 	public void handleStakeCancellation(Long accountID) {
-		PlayerEntryPanelController panelController = teamView
-				.getPlayerEntryPanelController(accountID);
+		PlayerEntryPanelView panelController = mainView
+				.getPlayerEntryPanelView(accountID);
 		panelController.setConfirmedStake(false);
 	}
 
 	@Override
 	public void handleEndOfGameDTO(EndOfGameDTO endOfGameDTO)
 			throws InvalidDTOFormatException {
-		teamView.setSessionStatus(PlaymoreSessionStatus.FINISHED);
+		mainView.setSessionStatus(PlaymoreSessionStatus.FINISHED);
 		endGameView.fill(endOfGameDTO);
 		endGameView.showView();
 	}
 
 	@Override
+	public void startPlaymoreClient() {
+		this.notificationListener.start();
+		this.lolClientListener.start();
+	}
+	
+	@Override
 	public void disconnect() {
 		// TODO restController.sendDisconnect()
+	}
+
+	@Override
+	public void handlePlayerDisconnect(Long accountID) {
+		mainView.setSessionStatus(PlaymoreSessionStatus.SESSION_INCONSISTENT);
+		PlayerEntryPanelView v = mainView.getPlayerEntryPanelView(accountID);
+		v.unexpectedlyDisconnected();
+	}
+	
+	@Override
+	public void handleSessionParametersChange(JsonObject json) {
+		SessionSettingsPanelView ssController = mainView
+				.getSessionSettingsView();
+		// TODO parseJson / setValues
+	}
+
+	@Override
+	public void handleSessionStarting() {
+		mainView.setSessionStatus(PlaymoreSessionStatus.STARTED);
 	}
 	
 	@Override
@@ -69,35 +100,37 @@ public abstract class AbstractPlaymoreController implements
 		switch (state) {
 		case CHAMP_SELECT: {
 			// team lined up.update champs
-			teamView.setSessionStatus(PlaymoreSessionStatus.SELECTING_CHAMPIONS);
+			mainView.setSessionStatus(PlaymoreSessionStatus.SELECTING_CHAMPIONS);
 			break;
 		}
 		case START_REQUESTED: {
 			// print "starting" or smth
-			teamView.setSessionStatus(PlaymoreSessionStatus.GAME_IN_PROGRESS);
+			mainView.setSessionStatus(PlaymoreSessionStatus.GAME_IN_PROGRESS);
 			break;
 		}
 		case TERMINATED: {
 			// print "hooray terminted" or smth
 			// endgamestats should have arrived by now
-			teamView.setSessionStatus(PlaymoreSessionStatus.FINISHED);
+			mainView.setSessionStatus(PlaymoreSessionStatus.FINISHED);
 			break;
 		}
 		case TERMINATED_IN_ERROR: {
 			// game wasn't finished. happened when everybody left
-			teamView.setSessionStatus(PlaymoreSessionStatus.FINISHED_WITH_ERROR);
+			mainView.setSessionStatus(PlaymoreSessionStatus.FINISHED_WITH_ERROR);
 			break;
 		}
 		case TEAM_SELECT: {
 			// update team lineup
 			synchronized (dtoLock) {
 				handleTeamSelectionDTO(gameDTO);
+				this.gameDTO = gameDTO;
 			}
 		}
 		}
 	}
 
-	protected abstract void handleTeamSelectionDTO(GameDTO gameDTO);
+	protected void handleTeamSelectionDTO(GameDTO gameDTO){
+	}
 
 	protected boolean isInTeamSelect(GameDTO gameDTO) {
 		String gameState = gameDTO.getGameState();
