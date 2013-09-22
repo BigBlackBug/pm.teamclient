@@ -4,12 +4,16 @@
  */
 package org.qbix.pm.client.view;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.qbix.pm.client.model.PlayerParticipant;
-import org.qbix.pm.client.notifications.ParticipantsReturnInfo.Entry;
+import org.qbix.collection.CollectionUtils;
+import org.qbix.collection.predicates.Predicate;
+import org.qbix.pm.client.model.lol.PlayerParticipant;
+import org.qbix.pm.client.model.pm.GameDTO;
+import org.qbix.pm.client.model.pm.PlayerEntryDTO;
 import org.qbix.pm.client.view.interfaces.PlayerEntryPanelView;
 import org.qbix.pm.client.view.interfaces.TeamPanelView;
 
@@ -19,43 +23,51 @@ import org.qbix.pm.client.view.interfaces.TeamPanelView;
  */
 public class TeamJPanel extends javax.swing.JPanel implements TeamPanelView{
 	
+	private static final int MAX_PLAYERS = 5;
+	
 	private Map<Long, PlayerEntryPanelView> map;
+	private final List<PlayerEntryPanelView> views;
     /**
      * Creates new form TeamJPanel
      */
 	public TeamJPanel() {
 		initComponents();
-		map = new HashMap<Long, PlayerEntryPanelView>();
+		map = new HashMap<>();
+		views = new ArrayList<>();
+		views.add(player1Panel);
+		views.add(player2Panel);
+		views.add(player3Panel);
+		views.add(player4Panel);
+		views.add(player5Panel);
 	}
 
 	@Override
 	public void fill(List<PlayerParticipant> players,
-			Map<Long, Entry> pmEntries) {
-		assert players.size() == pmEntries.size();
-		
-		PlayerParticipant pp = players.get(0);
-		fillOne(player1Panel, pp, pmEntries);
-		
-		pp = players.get(1);
-		fillOne(player2Panel, pp, pmEntries);
-		
-		pp = players.get(2);
-		fillOne(player3Panel, pp, pmEntries);
+			GameDTO gameDTO) {
+		for (int i = 0; i < MAX_PLAYERS; i++) {
+			PlayerEntryPanelView view = views.get(i);
+			PlayerParticipant participant = players.get(i);
+			PlayerEntryDTO entry = getPlayerEntry(gameDTO.getPlayerEntries(),
+					participant.getAccountId());
+			fillOne(view, participant, entry);
+		}
+	}
 
-		pp = players.get(3);
-		fillOne(player4Panel, pp, pmEntries);
-
-		pp = players.get(4);
-		fillOne(player5Panel, pp, pmEntries);
+	private PlayerEntryDTO getPlayerEntry(List<PlayerEntryDTO> playerEntries,
+			final Long lolAccountId) {
+		return CollectionUtils.filterEntities(playerEntries,
+			new Predicate<PlayerEntryDTO>() {
+				@Override
+				public boolean isSatisfiedBy(PlayerEntryDTO entity) {
+					return entity.getLolAccountId() == lolAccountId;
+				}
+			}).toEntity();
 	}
 
 	private void fillOne(PlayerEntryPanelView view, PlayerParticipant pp,
-			Map<Long, Entry> pmEntries) {
-		Entry entry = pmEntries.get(pp.getAccountId());
-		Long pmAccountID = entry.getPmAccountID();
-		String pmNickName = entry.getPmNickName();
-		view.fill(pp, pmAccountID, pmNickName);
-		map.put(pmAccountID, view);
+			PlayerEntryDTO entry) {
+		view.fill(pp, entry);
+		map.put(entry.getAccountId(), view);
 	}
 	
 	

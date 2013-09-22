@@ -1,4 +1,4 @@
-package org.qbix.pm.client.misc;
+package org.qbix.pm.client.misc.enums;
 
 import org.qbix.pm.client.misc.exceptions.InvalidDTOFormatException;
 

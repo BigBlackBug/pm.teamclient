@@ -6,15 +6,18 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 import org.qbix.pm.client.controller.interfaces.PlaymoreController;
+import org.qbix.pm.client.misc.PlaymoreSettings;
+import org.qbix.pm.client.model.pm.GameDTO;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
-public class NotificationListener{
-	//TODO move this to configuration file
-	private static final String NOTIFICATION_SERVER_HOSTNAME = "localhost";
-	private static final int NOTIFICATION_SERVER_PORT = 4444;
+public class NotificationListener {
+	private static final String NOTIFICATION_SERVER_HOSTNAME = PlaymoreSettings
+			.getNotificationServerHostname();
+	private static final int NOTIFICATION_SERVER_PORT = PlaymoreSettings
+			.getNotificationServerPort();
 
 	private final Gson gson;
 	private final PlaymoreController controller;
@@ -66,19 +69,18 @@ public class NotificationListener{
 									"account_id").getAsLong());
 							break;
 						}
-						case SESSION_PARAMETERS_CHANGED: {
-							controller.handleSessionParametersChange(json);
+						case GAME_PARAMETERS_CHANGED: {
+							controller.handleGameSettingsChanged(gson.fromJson(json,
+									GameDTO.class));
 							break;
 						}
-						case SESSION_STARTED: {
-							controller.handleSessionStarting();
+						case GAME_STARTED: {
+							controller.handleGameStarting();
 							break;
+						}case GAME_CANCELLED:{
+							//TODO handle
 						}
-						case UPDATE_WITH_GAMEDTO: {
-							controller.handleUpdateWithDTO(gson.fromJson(json,
-									ParticipantsReturnInfo.class));
 							break;
-						}
 						}
 					}
 				} catch (IOException e) {

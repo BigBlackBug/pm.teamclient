@@ -1,16 +1,16 @@
 package org.qbix.pm.client.view.interfaces;
 
-import org.qbix.pm.client.misc.PlaymoreSessionStatus;
-import org.qbix.pm.client.model.GameDTO;
-import org.qbix.pm.client.notifications.ParticipantsReturnInfo;
+import org.qbix.pm.client.misc.PlaymoreGameStatus;
+import org.qbix.pm.client.model.lol.LoLGameDTO;
+import org.qbix.pm.client.model.pm.GameDTO;
 
 public interface PMMainView extends View {
 
-	public void setSessionStatus(PlaymoreSessionStatus status);
+	public void setSessionStatus(PlaymoreGameStatus status);
 	
-	public void fill(GameDTO gameDTO, ParticipantsReturnInfo info);
+	public void fill(LoLGameDTO lolGameDTO, GameDTO gameDTO);
 	
 	public PlayerEntryPanelView getPlayerEntryPanelView(Long accountID);
 	
-	public SessionSettingsPanelView getSessionSettingsView();
+	public GameSettingsPanelView getGameSettingsView();
 }

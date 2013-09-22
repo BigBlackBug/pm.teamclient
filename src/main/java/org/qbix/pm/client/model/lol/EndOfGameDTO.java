@@ -1,4 +1,4 @@
-package org.qbix.pm.client.model;
+package org.qbix.pm.client.model.lol;
 
 import java.util.List;
 

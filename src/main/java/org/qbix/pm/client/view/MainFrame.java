@@ -4,12 +4,12 @@
  */
 package org.qbix.pm.client.view;
 
-import org.qbix.pm.client.misc.PlaymoreSessionStatus;
-import org.qbix.pm.client.model.GameDTO;
-import org.qbix.pm.client.notifications.ParticipantsReturnInfo;
+import org.qbix.pm.client.misc.PlaymoreGameStatus;
+import org.qbix.pm.client.model.lol.LoLGameDTO;
+import org.qbix.pm.client.model.pm.GameDTO;
 import org.qbix.pm.client.view.interfaces.PMMainView;
 import org.qbix.pm.client.view.interfaces.PlayerEntryPanelView;
-import org.qbix.pm.client.view.interfaces.SessionSettingsPanelView;
+import org.qbix.pm.client.view.interfaces.GameSettingsPanelView;
 
 /**
  *
@@ -50,23 +50,23 @@ public class MainFrame extends javax.swing.JFrame implements PMMainView{
 	}
 
 	@Override
-	public SessionSettingsPanelView getSessionSettingsView() {
+	public GameSettingsPanelView getGameSettingsView() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setSessionStatus(PlaymoreSessionStatus status) {
+	public void setSessionStatus(PlaymoreGameStatus status) {
 		// TODO Auto-generated method stub
 		
 	}
 	
 	@Override
-	public void fill(GameDTO gameDTO, ParticipantsReturnInfo info) {
-		teamJPanel1.fill(gameDTO.getTeamOne(), info.getTeamOne());
-		teamJPanel2.fill(gameDTO.getTeamTwo(), info.getTeamTwo());
+	public void fill(LoLGameDTO lolGameDTO, GameDTO gameDTO) {
+		//TODO sessionSettings.fill(gameDTO.getVc())
+		teamJPanel1.fill(lolGameDTO.getTeamOne(), gameDTO);
+		teamJPanel2.fill(lolGameDTO.getTeamTwo(), gameDTO);		
 	}
-	
 	
     /**
      * This method is called from within the constructor to initialize the form.

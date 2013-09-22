@@ -1,42 +1,67 @@
 package org.qbix.pm.client.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
-import org.qbix.pm.client.controller.interfaces.AbstractPlaymoreController;
-import org.qbix.pm.client.controller.interfaces.RestController;
-import org.qbix.pm.client.model.GameDTO;
-import org.qbix.pm.client.notifications.NotificationListener;
-import org.qbix.pm.client.notifications.ParticipantsReturnInfo;
+import org.qbix.pm.client.misc.exceptions.RequestFailedException;
+import org.qbix.pm.client.model.lol.LoLGameDTO;
+import org.qbix.pm.client.model.pm.GameDTO;
 import org.qbix.pm.client.view.interfaces.PMEndGameView;
 import org.qbix.pm.client.view.interfaces.PMMainView;
 
 public class HostPlaymoreController extends AbstractPlaymoreController {
 
-	private final RestController restController;
+	private static final BigDecimal DEFAULT_STAKE = new BigDecimal(100);
+	
+	private final HostRestController restController;
 
 	public HostPlaymoreController(PMMainView teamView,
-			PMEndGameView endGameView, long accountID) throws IOException {
-		super(teamView, endGameView, accountID);
-		// teamView.fill(initialDTO);
-		this.restController = new RestControllerImpl();
-		this.notificationListener = new NotificationListener(this);
+			PMEndGameView endGameView, LoLGameDTO initialGameDTO, long pmAccountID)
+			throws IOException {
+		super(teamView, endGameView, initialGameDTO, pmAccountID);
+		this.restController = new HostRestController();
+		handleLoLGameDTO(initialGameDTO);
 	}
 
 	@Override
-	public void handleTeamSelectionDTO(GameDTO gameDTO){
-		if(gameDTO == null){
-			//TODO  sessionID = restController.registerSession();
-		}else{
-			// TODO restController.updateParticipants();
+	public void handleTeamLineupChanged(LoLGameDTO lolGameDTO) {
+		if (this.lolGameDTO == null) {
+			try {
+				gameID = restController.registerSession(DEFAULT_STAKE,
+						pmAccountID);
+			} catch (RequestFailedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				//TODO fill
+				restController.updateGame(gameID, lolGameDTO, null, null);
+			} catch (RequestFailedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
 	@Override
-	public void handleUpdateWithDTO(ParticipantsReturnInfo info) {
+	public void handleGameSettingsChanged(GameDTO gameDTO) {
 		synchronized (dtoLock) {
-			mainView.fill(gameDTO, info);
+			mainView.fill(lolGameDTO, gameDTO);
 			mainView.showView();
-		}
+		}		
 	}
+
+	
+//	@Override
+//	public void handleUpdateWithDTO(ParticipantsReturnInfo info) {
+
+//	}
 
 }

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.qbix.pm.client.model;
+package org.qbix.pm.client.model.lol;
 
 import java.util.Date;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  * 
  * @author BigBlackBug
  */
-public class GameDTO {
+public class LoLGameDTO {
 
 	private Date TimeStamp;
 	private String ObjectType;
@@ -22,7 +22,7 @@ public class GameDTO {
 	private Double id;
 	private Integer maxNumPlayers;
 	private String name; // "Jabe's game"
-	private Integer pickTurn; // TODO: check but I think 0 = not time to pick, 1 = pick, 2 = champion locked
+	private Integer pickTurn; //check but I think 0 = not time to pick, 1 = pick, 2 = champion locked
 	private List<PlayerChampionSelectionDTO> playerChampionSelections; // our team selection(why?)
 	private String queueTypeName; // cf. QueueType enum
 	private List<PlayerParticipant> teamOne;

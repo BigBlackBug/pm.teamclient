@@ -6,13 +6,17 @@ package org.qbix.pm.client.view;
 
 import javax.swing.JLabel;
 
-import org.qbix.pm.client.model.PlayerParticipant;
+import org.qbix.pm.client.model.lol.PlayerParticipant;
+import org.qbix.pm.client.model.pm.PlayerEntryDTO;
 import org.qbix.pm.client.view.interfaces.PlayerEntryPanelView;
 
 /**
  *
  * @author BigBlackBug
  */
+//TODO cancel participation
+//TODO confirm participation
+//TODO start_game
 public class PlayerEntryPanel extends javax.swing.JPanel implements PlayerEntryPanelView{
 
 	private Long accountID;
@@ -25,7 +29,7 @@ public class PlayerEntryPanel extends javax.swing.JPanel implements PlayerEntryP
     }
 
 	@Override
-	public void setConfirmedStake(boolean confirmedStake) {
+	public void setConfirmedParticipation(boolean confirmedStake) {
 		//TODO fix captions
 		statusLabel.setText("ready to play!");
 		confirmStakeButton.setEnabled(confirmedStake);
@@ -35,20 +39,20 @@ public class PlayerEntryPanel extends javax.swing.JPanel implements PlayerEntryP
 			confirmStakeButton.setText("accept");
 		}
 	}
-
+	
 	@Override
-	public void unexpectedlyDisconnected() {
-		// TODO Auto-generated method stub
-		
+	public void fill(PlayerParticipant playerParticipant,
+			PlayerEntryDTO playerEntry) {
+		this.accountID = playerEntry.getAccountId();
+		this.playmoreNickName.setText(playerEntry.getNick());
+		this.summonerNickLabel.setText(playerEntry.getSummonersNick());
+		// TODO icon
 	}
 	
 	@Override
-	public void fill(PlayerParticipant participant, Long accountID,
-			String pmNickname) {
-		playmoreNickName.setText(pmNickname);
-		this.accountID = accountID;
-		this.summonerNickLabel.setText(participant.getSummonerName());
-		//TODO icon
+	public void playerDisconnected() {
+		// TODO Auto-generated method stub
+		
 	}
 
     public Long getAccountID() {

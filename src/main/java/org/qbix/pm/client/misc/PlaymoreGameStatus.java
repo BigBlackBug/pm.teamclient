@@ -1,6 +1,6 @@
 package org.qbix.pm.client.misc;
 
-public enum PlaymoreSessionStatus {
+public enum PlaymoreGameStatus {
 	
 	PREPARING,
 	

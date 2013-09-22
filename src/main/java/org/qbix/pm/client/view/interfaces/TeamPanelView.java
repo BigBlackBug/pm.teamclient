@@ -1,10 +1,9 @@
 package org.qbix.pm.client.view.interfaces;
 
 import java.util.List;
-import java.util.Map;
 
-import org.qbix.pm.client.model.PlayerParticipant;
-import org.qbix.pm.client.notifications.ParticipantsReturnInfo.Entry;
+import org.qbix.pm.client.model.lol.PlayerParticipant;
+import org.qbix.pm.client.model.pm.GameDTO;
 
 public interface TeamPanelView {
 	public PlayerEntryPanelView getPlayerEntryPanelView(
@@ -20,5 +19,5 @@ public interface TeamPanelView {
 
 	public PlayerEntryPanelView getPlayer5Panel();
 	
-	public void fill(List<PlayerParticipant> players, Map<Long, Entry> pmEntries); 
+	public void fill(List<PlayerParticipant> players, GameDTO gameDTO); 
 }

@@ -1,15 +1,14 @@
 package org.qbix.pm.client.view.interfaces;
 
-import org.qbix.pm.client.model.PlayerParticipant;
+import org.qbix.pm.client.model.lol.PlayerParticipant;
+import org.qbix.pm.client.model.pm.PlayerEntryDTO;
 
 public interface PlayerEntryPanelView {
 	
-	public void setConfirmedStake(boolean confirmedStake);
+	public void setConfirmedParticipation(boolean confirmedStake);
 	
-	//TODO make it a listener
-	public void unexpectedlyDisconnected();
+	public void playerDisconnected();
 	
-	public void fill(PlayerParticipant participant, Long pmAccountID,
-			String pmNickname);
+	public void fill(PlayerParticipant playerParticipant, PlayerEntryDTO playerEntry);
 	
 }

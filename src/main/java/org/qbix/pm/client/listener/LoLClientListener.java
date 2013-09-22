@@ -7,8 +7,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import org.qbix.pm.client.controller.interfaces.StartupClientController;
-import org.qbix.pm.client.model.EndOfGameDTO;
-import org.qbix.pm.client.model.GameDTO;
+import org.qbix.pm.client.model.lol.EndOfGameDTO;
+import org.qbix.pm.client.model.lol.LoLGameDTO;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -52,10 +52,10 @@ public class LoLClientListener {
 									}.getType());
 								controller.handleEndOfGameDTO(endOfGameDTO);
 							}else if(ele.equals("GameDTO")){
-								GameDTO gameDTO = gson.fromJson(fromJson,
-									new TypeToken<GameDTO>() {
+								LoLGameDTO gameDTO = gson.fromJson(fromJson,
+									new TypeToken<LoLGameDTO>() {
 									}.getType());
-								controller.handleGameDTO(gameDTO);
+								controller.handleLoLGameDTO(gameDTO);
 							}else{
 								throw new UnsupportedOperationException("unsupported ObjectType");
 							}
